@@ -4,7 +4,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 from decouple import config
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+# SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
+SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = ['basicblogdjango.herokuapp.com']
 
 INSTALLED_APPS = [
