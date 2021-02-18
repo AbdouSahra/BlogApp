@@ -3,7 +3,7 @@ import django_heroku
 from pathlib import Path
 
 from decouple import config
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 SECRET_KEY = config('SECRET_KEY')
