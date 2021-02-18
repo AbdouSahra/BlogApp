@@ -7,6 +7,7 @@ class Profile(models.Model):
     bio = models.TextField()
     picture = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
+
     def __str__(self):
         return str(self.user)
 
