@@ -1,6 +1,6 @@
 import os
+import django_heroku
 
-ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 from decouple import config
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -109,3 +109,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+django_heroku.settings(locals())
