@@ -1,7 +1,7 @@
 import os
 
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
-
+from decouple import config
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
@@ -105,6 +105,6 @@ EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'daraqutni1@gmail.com'
-EMAIL_HOST_PASSWORD = 'fellaga280'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
