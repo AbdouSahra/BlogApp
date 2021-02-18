@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{post.title}}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+
+  <!-- Grid row -->
+  <div class="row mt-5">
+
+    <!-- Grid column -->
+    <div class="col-md-8 mb-4">
+
+      <h1 class="font-weight-bold">{{post.title | upper}}</h1>
+
+      <div class="card my-4">
+        <img src="{{post.post_image.url}}" class="img-fluid" alt="">
+
+      </div>
+       <p>by <a href="{% url 'profile' post.author.profile.user.username  %}" class="font-weight-bold">{{post.author}}</a>, {{post.date_created | date:"F d Y"}}</p>
+       {% if request.user == post.author %}
+          <a href="{% url 'core:update' post.slug %}" class="badge bg-info">Edit Your Post</a>
+          <a href="{% url 'core:delete' post.slug %}" class="badge bg-danger">Delete</a>
+        {% endif %}
+        <p align="justify">{{ post.content | safe }}
+
+      <h4 class="text-center font-weight-bold mb-3">Share this article</h4>
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item"><a><i class="fab fa-facebook-f fa-lg px-2 text-primary"></i></a></li>
+        <li class="list-inline-item"><a><i class="fab fa-twitter fa-lg px-2 text-info"></i></a></li>
+        <li class="list-inline-item"><a><i class="far fa-envelope fa-lg px-2 text-default"></i></a></li>
+      </ul>
+
+      {% if user.is_authenticated %}
+  <form action="{% url 'core:like' object.id %}" method="POST">
+    {% csrf_token %}
+
+      {% if post_is_liked %}
+      <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-info btn-sm">Unlike</button>
+      {% else %}
+      <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-info btn-sm">Like</button>
+      {% endif %}
+    </form>
+  {% else %}
+    <a class="btn btn-info btn-sm" href="{% url 'login' %}?next={{request.path}}">Like</a><br>
+  {% endif %}
+  <strong">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
+
+
+
+
+ <div class="container  p-5 border border-light">
+    <div class="text-center font-weight-bold mb-3"><span>{{post.comment_numbers}}</span> comment{{post.comment_numbers | pluralize }}</div>
+{% if comments %}
+    {% for comment in comments %}
+        <div class="media d-block d-md-flex  mb-3 border border-light container">
+          <img class="card-img-64 d-flex mx-auto mb-3 mt-3"
+            src="{{comment.name.profile.picture.url}}">
+          <div class="media-body text-center text-md-left ml-md-3 ml-0 mb-4 mt-3">
+            <p class="font-weight-bold my-0">
+              {{comment.name}} | {{comment.date_added | date:'d F Y '}}
+              <a href="" class="pull-right ml-1">
+              </a>
+              {% if user.is_authenticated and user == comment.name %}
+          <a href="{% url 'core:dltz' comment.id %}" class="badge bg-danger float-right">Delete</a>
+              {%endif%}
+            </p>
+            {{comment.comment | safe }}
+
+            </div>
+          </div>
+    {% endfor %}
+
+{% else %}
+  <h4>No comments yet </h4>
+{% endif %}
+
+{% if user.is_authenticated %}
+          <form method="POST" >
+            {% csrf_token%}
+            {{comment_form.comment}}
+            <div class="text-center my-4">
+              <button class="btn btn-info btn-sm" type="submit">Post</button>
+            </div>
+          </form>
+{% else%}
+
+<form method="POST" >
+          {% csrf_token%}
+      <textarea class="form-control" rows="4">  </textarea>
+    <div class="text-center my-4">
+    <a href="{% url 'login' %}?next={{request.path}}" class="btn btn-info btn-sm" type="submit">Post</a>
+  </div>
+</form>
+{% endif %}
+
+
+
+</div>
+</div>
+  <!-- Grid row -->
+
+
+</div>
+
+
+{% endblock content %}
+

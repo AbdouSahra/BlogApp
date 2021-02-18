@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Edit Profile
+{% endblock %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit your profile</legend>
+                <div class="view overlay">
+                <img src="{{user.profile.picture.url}}" class="rounded-circle" alt="" height="250px" width="250px">
+                <div class="mask rgba-white-slight"></div>
+                    </div>                {{ form | crispy }}
+            </fieldset>
+            <div class='form-group'>
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

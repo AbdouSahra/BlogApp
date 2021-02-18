@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+    <!--Grid row-->
+    <div class="row my-xl-5 py-xl-4">
+
+        <!--Grid column-->
+        <div class="col-sm-12 col-md-5 col-xl-5 mb-4">
+
+            <!--Image-->
+            <div class="view overlay">
+                <img src="{{page_user.picture.url}}" class="img-fluid z-depth-1" alt="">
+                <div class="mask rgba-white-slight"></div>
+            </div>
+            <!--/.Image-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-sm-12 col-md-6 col-xl-6">
+
+            <h3 class="dark-grey-text pb-2 font-weight-bold">
+                <strong>About me</strong>
+            </h3>
+            <hr>
+
+            <p class="dark-grey-text mt-4 text-justify">{{page_user.bio}}</p>
+
+            <h5 class="text-right font-weight-bold dark-grey-text mt-5">
+                <em>{{page_user.user.username}}</em>
+            </h5>
+        </div>
+
+    </div>
+    <!--/Grid row-->
+    <section class="text">
+    <hr class="my-3">
+    <!-- Grid row -->
+  <div class="row">
+    {% for post in posts %}
+    <!-- Grid column -->
+    <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+
+      <!-- Featured image -->
+      <div class="view overlay rounded z-depth-2 mb-4">
+        <img class="img-fluid" src="{{post.post_image.url}}"    alt="Sample image" style="height:300px;">
+        <a href="{% url 'core:detail' post.slug %}">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Category -->
+      <a href="#!" class=" red-text">
+        <h6 class="font-weight-bold mb-3"><i class="fas fa-map pr-2"></i>{{post.get_category_display}}</h6>
+      </a>
+
+      <!-- Post title -->
+
+    <a href="{% url 'core:detail' post.slug %}">
+      <h4 href= class="font-weight-bold mb-3"><strong>{{post.title}}</strong></h4>
+    </a>
+
+      <!-- Post data -->
+      <p>by <a class="font-weight-bold">{{post.author}}</a>, {{post.date_created | date:"F d Y"}}</p>
+      <!-- Excerpt -->
+      <p class="dark-grey-text">{{post.content|truncatewords:50|safe}}</p>
+      <!-- Read more button -->
+      <a href="{% url 'core:detail' post.slug %}" class="btn btn-blue btn-rounded btn-md mb-5">Read more</a>
+
+    </div>
+</div>
+    {%endfor%}
+
+</div>
+
+
+    <!--Grid row-->
+
+    <!--Pagination-->
+    {% if is_paginated%}
+      <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+
+          {% if page_obj.has_previous%}
+          <li class="page-item  ">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+            <li class="page-item ml-2">
+            <a class="page-link" href="?page=1">{{page_obj.previous_page_number}}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% endif %}
+
+          <li class="page-item active">
+            <a class="page-link" href="?page={{page_obj.number}}">{{page_obj.number}}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          {% if page_obj.has_next %}
+
+            <li class="page-item   ml-2">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+
+
+</section>
+
+
+{% endblock content %}
