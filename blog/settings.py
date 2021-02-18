@@ -1,13 +1,13 @@
 import os
 import django_heroku
-
+from pathlib import Path
 
 from decouple import config
 DEBUG = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 SECRET_KEY = config('SECRET_KEY')
-ALLOWED_HOSTS = ['basicblogdjango.herokuapp.com']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -93,7 +93,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
