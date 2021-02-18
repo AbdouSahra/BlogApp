@@ -4,7 +4,7 @@ import django_heroku
 
 from decouple import config
 DEBUG = True
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = ['basicblogdjango.herokuapp.com']
