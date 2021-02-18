@@ -3,7 +3,7 @@ import django_heroku
 from pathlib import Path
 
 from decouple import config
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
 SECRET_KEY = config('SECRET_KEY')
@@ -91,11 +91,11 @@ USE_TZ = True
 
 SITE_ID = 1
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
