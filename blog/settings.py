@@ -1,6 +1,7 @@
 import os
 import django_heroku
 
+
 from decouple import config
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
